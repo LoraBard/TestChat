@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/TestChat/static/css/main.9485a432.chunk.css",
+    "main.js": "/TestChat/static/js/main.1def8e16.chunk.js",
+    "main.js.map": "/TestChat/static/js/main.1def8e16.chunk.js.map",
+    "runtime~main.js": "/TestChat/static/js/runtime~main.d4c8ddcb.js",
+    "runtime~main.js.map": "/TestChat/static/js/runtime~main.d4c8ddcb.js.map",
+    "static/css/2.666fe85b.chunk.css": "/TestChat/static/css/2.666fe85b.chunk.css",
+    "static/js/2.aff840b6.chunk.js": "/TestChat/static/js/2.aff840b6.chunk.js",
+    "static/js/2.aff840b6.chunk.js.map": "/TestChat/static/js/2.aff840b6.chunk.js.map",
+    "index.html": "/TestChat/index.html",
+    "precache-manifest.9dcc2c639dce1db01625deb612add88f.js": "/TestChat/precache-manifest.9dcc2c639dce1db01625deb612add88f.js",
+    "service-worker.js": "/TestChat/service-worker.js",
+    "static/css/2.666fe85b.chunk.css.map": "/TestChat/static/css/2.666fe85b.chunk.css.map",
+    "static/css/main.9485a432.chunk.css.map": "/TestChat/static/css/main.9485a432.chunk.css.map",
+    "static/media/chat.scss": "/TestChat/static/media/back.473124b8.jpg"
+  }
+}

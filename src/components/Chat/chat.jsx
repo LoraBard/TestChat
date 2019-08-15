@@ -22,6 +22,7 @@ class Chat extends React.Component{
     this.active=true;
     this.inputValue='';
     this.messagesEnd='';
+    this.flag=true;
     this.granted=false;
     const options = {
       connectionTimeout: 5000,
@@ -54,10 +55,11 @@ class Chat extends React.Component{
       messages: prevState.messages.concat(JSON.parse(event.data).reverse()),
     }
   });
-   if(this.granted){
+   if(this.granted && !this.flag){
     this.sendNotification(JSON.parse(event.data));
   }
     this.scrollToBottom();
+    this.flag=false;
  }
 
  NotificationRequested(){

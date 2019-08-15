@@ -1,0 +1,26 @@
+#message{
+    margin:5% auto 5% 0;
+    max-width:500px;
+    width:fit-content;
+    word-break: break-all;
+    border:none;
+}
+.my{
+    color:#fff;
+}
+
+.title{
+    display:flex;
+    justify-content: flex-start;
+    flex-wrap:wrap;
+    .card-title{
+        margin-right:20px;
+    }
+    & :not(.card-title) {
+        color:#666;
+    }
+}
+
+.messageText{
+    word-break: break-all;
+}

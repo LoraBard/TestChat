@@ -1,0 +1,120 @@
+body{
+    height:100%;
+    background-image:url('../../assets/back.jpg');
+    background-size:cover;
+}
+
+.cont{
+    background-color:#fff;
+    border-radius:20px;
+    padding-top:30px;
+    padding-bottom:30px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.7);
+}
+
+.buttonExit{
+    margin-left:4%;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+.hello{
+    margin-top:5px; 
+}
+.chatContainer{
+    list-style-type: none;
+    overflow-y: scroll;
+    overflow-x:hidden;
+    height:75vh;
+    width:100%;
+    padding-left:0;
+    margin-top:2%;
+    &::-webkit-scrollbar{
+    width: 12px;
+	background-color: #F5F5F5;
+    }
+    &::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: #9999ff;
+    }
+
+    ul{
+        list-style: none;
+        display:flex;
+        flex-direction: column;
+    }
+    .myMess{
+        align-self: flex-end;
+    }
+}
+.row{
+    margin-left:auto;
+    margin-right:auto;
+}
+.titleChat{
+    display:flex;
+    & :first-child{
+        margin-right:2%;
+    }
+}
+form{
+    position:relative;
+    display:flex;
+    justify-content: center;
+    background-color: #f2f2f2;
+    border:none;
+    outline:none;
+    margin-top:15px;
+    width:90%;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:transparent;
+}
+#typeMessage{
+    height:8vh;
+    position:relative;
+    display:flex;
+    justify-content: center;
+    background-color: #f2f2f2;
+    border:1px solid transparent;
+    border-radius:20px;
+    margin-top:15px;
+    width:90%;
+    margin-left:auto;
+    margin-right:auto;
+    textarea{
+        width:90%;
+        border:none;
+        outline:none;
+        background-color: #f2f2f2;
+        -webkit-appearance: none;
+        background-color:transparent;
+        resize: none;
+        textarea:focus{
+        border:none;
+        outline:none;
+        }
+    }
+    .send{
+        position:absolute;
+        right:-15px;
+        top:5px;
+        -webkit-appearance: none;
+    }
+}
+
+svg{
+    display:none;
+}
+
+.arrow{
+    position: fixed;
+    cursor: pointer;
+    bottom: 8%;
+    padding-left: 1%;
+}
+
+.emodji{
+    position: absolute;
+    left: -15px;
+    top: 10px;
+}

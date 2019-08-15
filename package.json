@@ -2,7 +2,7 @@
   "name": "chat",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://LoraBard.github.io/TestChat",
+  "homepage": "https://lorabard.github.io/TestChat/",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "emoji-mart": "^2.11.1",

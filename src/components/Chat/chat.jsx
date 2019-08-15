@@ -10,7 +10,6 @@ import smile from '../../assets/smile.png'
 import send from '../../assets/send.png';
 import arrow from '../../assets/arrow.png';
 import ReconnectingWebSocket from 'reconnecting-websocket';
-import MIDISounds from 'midi-sounds-react';
 
 
 class Chat extends React.Component{
@@ -27,7 +26,7 @@ class Chat extends React.Component{
     const options = {
       connectionTimeout: 5000,
   };
-    this.socket = new ReconnectingWebSocket("wss://wssproxy.herokuapp.com/",[], options);
+    this.socket = new ReconnectingWebSocket(" wss://wssproxy.herokuapp.com/",[], options);
     this.socket.binaryType = "arraybuffer";
     this.addEventSocket();
     this.NotificationRequested();
@@ -55,9 +54,7 @@ class Chat extends React.Component{
       messages: prevState.messages.concat(JSON.parse(event.data).reverse()),
     }
   });
-  if(this.active){
-    this.refs.midiSounds.playChordNow(47, [60], 0.7);
-  } else if(this.granted){
+   if(this.granted){
     this.sendNotification(JSON.parse(event.data));
   }
     this.scrollToBottom();
@@ -195,7 +192,6 @@ class Chat extends React.Component{
         <textarea  value={this.state.text} onChange={(event)=>this.saveMessage(event)}/>
         <Image src={send} className='send' type="submit" onClick={() => this.sendMessage()}/>
         </Form>
-        <MIDISounds ref="midiSounds" appElementName="root" instruments={[47]} className="sound"/>
       </Row>
     </Container>
     );

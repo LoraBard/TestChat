@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/testchat/static/css/main.bf86e044.chunk.css",
-    "main.js": "/testchat/static/js/main.fcaafa96.chunk.js",
-    "main.js.map": "/testchat/static/js/main.fcaafa96.chunk.js.map",
-    "runtime~main.js": "/testchat/static/js/runtime~main.477d9a5e.js",
-    "runtime~main.js.map": "/testchat/static/js/runtime~main.477d9a5e.js.map",
-    "static/css/2.666fe85b.chunk.css": "/testchat/static/css/2.666fe85b.chunk.css",
-    "static/js/2.aff840b6.chunk.js": "/testchat/static/js/2.aff840b6.chunk.js",
-    "static/js/2.aff840b6.chunk.js.map": "/testchat/static/js/2.aff840b6.chunk.js.map",
-    "index.html": "/testchat/index.html",
-    "precache-manifest.1c2f14409f5d9a8d5c21a73c143fadb8.js": "/testchat/precache-manifest.1c2f14409f5d9a8d5c21a73c143fadb8.js",
-    "service-worker.js": "/testchat/service-worker.js",
-    "static/css/2.666fe85b.chunk.css.map": "/testchat/static/css/2.666fe85b.chunk.css.map",
-    "static/css/main.bf86e044.chunk.css.map": "/testchat/static/css/main.bf86e044.chunk.css.map",
-    "static/media/chat.scss": "/testchat/static/media/back.473124b8.jpg"
+    "main.css": "/TestChat/static/css/main.9485a432.chunk.css",
+    "main.js": "/TestChat/static/js/main.20a79284.chunk.js",
+    "main.js.map": "/TestChat/static/js/main.20a79284.chunk.js.map",
+    "runtime~main.js": "/TestChat/static/js/runtime~main.d4c8ddcb.js",
+    "runtime~main.js.map": "/TestChat/static/js/runtime~main.d4c8ddcb.js.map",
+    "static/css/2.666fe85b.chunk.css": "/TestChat/static/css/2.666fe85b.chunk.css",
+    "static/js/2.ad019f9b.chunk.js": "/TestChat/static/js/2.ad019f9b.chunk.js",
+    "static/js/2.ad019f9b.chunk.js.map": "/TestChat/static/js/2.ad019f9b.chunk.js.map",
+    "index.html": "/TestChat/index.html",
+    "precache-manifest.6073f9c37420d6f1553e1e8bf73120f2.js": "/TestChat/precache-manifest.6073f9c37420d6f1553e1e8bf73120f2.js",
+    "service-worker.js": "/TestChat/service-worker.js",
+    "static/css/2.666fe85b.chunk.css.map": "/TestChat/static/css/2.666fe85b.chunk.css.map",
+    "static/css/main.9485a432.chunk.css.map": "/TestChat/static/css/main.9485a432.chunk.css.map",
+    "static/media/chat.scss": "/TestChat/static/media/back.473124b8.jpg"
   }
 }

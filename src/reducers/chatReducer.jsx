@@ -1,17 +1,23 @@
 import { CONSTANTS } from '../actions';
 
 const initialState = {
-    isOnline: true
+    isOnline: true,
+    notify:false
 }
 
 const chatReducer = (state = initialState, action) => {
-    let st = {};
     switch(action.type) {
         case CONSTANTS.IS_ONLINE:
-                st = {
-                    isOnline: action.payload
+                return {
+                    ...state,
+                    isOnline: action.payload,
                 }
-            return st;
+        case CONSTANTS.NOTIFY:
+            return {
+                ...state,
+                notify: action.payload
+            }
+
         default:
             return state;
     }

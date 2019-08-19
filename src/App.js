@@ -11,9 +11,9 @@ class App extends React.Component {
 render() {
     return (
       <Switch>
-        <Redirect exact from="/" to="/login" />
-        <Route path="/login" component={Login} />
-        <Route path="/chat" component={Chat} />
+        <Redirect exact from={process.env.PUBLIC_URL + '/'} to={process.env.PUBLIC_URL + '/login'} />
+        <Route path={process.env.PUBLIC_URL + '/login'} component={Login} />
+        <Route path={process.env.PUBLIC_URL + '/chat'} component={Chat} />
       </Switch>
     );
   }

@@ -1,0 +1,39 @@
+.emodji{
+    position: absolute;
+    left: -15px;
+    top: 0px;
+}
+
+form{
+    position:relative;
+    display:flex;
+    justify-content: center;
+    background-color: #f2f2f2;
+    border:none;
+    outline:none;
+    margin-top:15px;
+    width:90%;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:transparent;
+}
+
+.textarea{
+    width:80%;
+    border:none;
+    outline:none;
+    background-color: #f2f2f2;
+    -webkit-appearance: none;
+    background-color:transparent;
+    resize: none;
+    textarea:focus{
+    border:none;
+    outline:none;
+    }
+}
+#send{
+    position:absolute;
+    right:-15px;
+    top:-5px;
+    -webkit-appearance: none;
+}

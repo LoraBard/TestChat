@@ -23,7 +23,7 @@ body{
 .chatContainer{
     list-style-type: none;
     overflow-y: scroll;
-    overflow-x:hidden;
+    overflow-x: hidden;
     height:75vh;
     width:100%;
     padding-left:0;
@@ -56,19 +56,7 @@ body{
         margin-right:2%;
     }
 }
-form{
-    position:relative;
-    display:flex;
-    justify-content: center;
-    background-color: #f2f2f2;
-    border:none;
-    outline:none;
-    margin-top:15px;
-    width:90%;
-    margin-left:auto;
-    margin-right:auto;
-    background-color:transparent;
-}
+
 #typeMessage{
     height:8vh;
     position:relative;
@@ -81,25 +69,6 @@ form{
     width:90%;
     margin-left:auto;
     margin-right:auto;
-    textarea{
-        width:90%;
-        border:none;
-        outline:none;
-        background-color: #f2f2f2;
-        -webkit-appearance: none;
-        background-color:transparent;
-        resize: none;
-        textarea:focus{
-        border:none;
-        outline:none;
-        }
-    }
-    .send{
-        position:absolute;
-        right:-15px;
-        top:5px;
-        -webkit-appearance: none;
-    }
 }
 
 svg{
@@ -113,8 +82,3 @@ svg{
     padding-left: 1%;
 }
 
-.emodji{
-    position: absolute;
-    left: -15px;
-    top: 10px;
-}

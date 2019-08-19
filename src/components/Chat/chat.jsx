@@ -1,240 +1,142 @@
 import React from "react";
-import { Container, Row, Col, Button, OverlayTrigger,Popover, Image, Spinner, Form} from 'react-bootstrap';
+import { Container, Row, Col, Button, Image, Spinner} from 'react-bootstrap';
+import {uniqueId} from 'lodash';
 import Message from '../Message';
+import MessageForm from '../MessageForm';
+import {NotificationRequested, sendNotification} from './notifications';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
-import {uniqueId} from 'lodash';
-import {isAuthenticated, isOnline} from '../../actions';
-import { Picker } from 'emoji-mart'
-import smile from '../../assets/smile.png'
-import send from '../../assets/send.png';
+import {isAuthenticated, isOnline, startSocket, notify, closeSocket} from '../../actions';
 import arrow from '../../assets/arrow.png';
-import ReconnectingWebSocket from 'reconnecting-websocket';
-import MIDISounds from 'midi-sounds-react';
 
 
 class Chat extends React.Component{
   constructor(props){
     super(props);
-    this.state={
-      messages:[],
-      text: ''
-    }
-    this.active=true;
-    this.inputValue='';
-    this.messagesEnd='';
-    this.granted=false;
-    const options = {
-      connectionTimeout: 5000,
-  };
-    this.socket = new ReconnectingWebSocket("wss://wssproxy.herokuapp.com/",[], options);
-    this.socket.binaryType = "arraybuffer";
-    this.addEventSocket();
-    this.NotificationRequested();
+    this.active = true;
+    this.messagesEnd = null;
+    this.scrollElem = null;
+    this.arrow=null;
+    this.f=false;
+    this.addEventListeners();
   }
 
- changeActive(){
-   this.active=!this.active;
- }
-
- socketOpen(){
-    const { dispatch } = this.props;
-    dispatch(isOnline(true));
-    if(document.cookie.length>1){
-      this.sendMessage();
-    }
-    this.setState({
-      messages: []
-  });
-  document.cookie = "message= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
- }
-
- socketMessage(event){
-  this.setState((prevState)=>{
-    return {
-      messages: prevState.messages.concat(JSON.parse(event.data).reverse()),
-    }
-  });
-  if(this.active){
-    this.refs.midiSounds.playChordNow(47, [60], 0.7);
-  } else if(this.granted){
-    this.sendNotification(JSON.parse(event.data));
-  }
-    this.scrollToBottom();
- }
-
- NotificationRequested(){
-  if (!("Notification" in window)) {
-    alert("This browser does not support desktop notification");
-  }
-  else{
-    Notification.requestPermission(permission=> {
-      if (permission === "granted") {
-        this.granted=true;
-      }
-    });
-  }
- }
-
- addEventSocket(){
-
-  window.addEventListener('focus',()=>this.changeActive);
-  window.addEventListener('blur',()=>this.changeActive);
-
-  window.addEventListener('online',()=>this.updateStatus());
-  window.addEventListener('offline',()=>this.updateStatus());
-
-  this.socket.addEventListener('open', ()=>this.socketOpen());
-
-  this.socket.addEventListener('message', (event)=>this.socketMessage(event));
-
-  this.socket.addEventListener('close', ()=>this.socketClose());
-}
-
- socketClose(){
-  const { dispatch } = this.props;
-  dispatch(isOnline(false));
-  window.removeEventListener('focus',this.changeActive);
-  window.removeEventListener('blur',this.changeActive);
-  window.removeEventListener('online',this.updateStatus);
-  window.removeEventListener('offline',this.updateStatus);
-
-  this.socket.removeEventListener('open',this.socketOpen);
-  this.socket.removeEventListener('message',this.socketMessage);
-  this.socket.removeEventListener('close',this.socketClose);
- }
-
-  sendNotification(data){
-    data.map((mess) => {
-      let body = mess.message;
-      return new Notification(mess.from, {body})
-    });
-  }
-
-  updateStatus(){
-    const { dispatch } = this.props;
-    if(navigator.onLine){
-      dispatch(isOnline(true));
-    } else {
-      this.socket.close();
-      this.socket.reconnect();
-    }
-  }
-  
-  closeSocket(){
-    const { dispatch } = this.props;
-    dispatch(isAuthenticated(false));
-    this.socket.close();
-    localStorage.clear();
-  }
-
-  saveMessage(event){
-    this.setState({
-       text: event.target.value
-    });
-  }
-
-  addEmoji(e){
-    let emoji = e.native;
-    this.setState((prevState, props)=>{
-      return {
-        text: prevState.text + emoji
-      }
-    });
-  }
-
-
-  sendMessage(){
-    this.socket.send(JSON.stringify({
-      from: this.props.login.nickname,
-      message: this.state.text!==''?this.state.text:document.cookie.replace(/(?:(?:^|.*;\s*)message\s\=\*\s*([^;]*).*$)|^.*$/, "$1")
-    }));
-    if(!this.props.chat.isOnline){
-      document.cookie = `message=${this.state.text}`;
-      this.setState((prevState)=>{
-        return {
-          messages: prevState.messages.concat([{
-            from: this.props.login.nickname,
-            message: this.state.text,
-            time: Date.now()
-          }]),
-        }
-      });
-    }
-    this.setState({text:''});
-  }
-
-  scrollToBottom = () => {
+  scrollToBottom(){
       this.messagesEnd.scrollIntoView();
   }
 
-  returnMessages(){
-    const popover = (
-      <Popover id="popover-basic">
-        <Picker onSelect={(e)=>this.addEmoji(e)} />
-      </Popover>
-    );
+  componentDidUpdate(){
+    if(this.props.chat.notify&&!this.active&&this.props.messages.messages.length){
+      sendNotification(this.props.messages.messages[this.props.messages.messages.length-1]);
+    }
+    if(!this.f){
+      this.scrollToBottom();
+    }
+  }
+
+  addEventListeners(){
+    window.onload=()=>{
+      this.props.dispatch(startSocket());
+      NotificationRequested().then(result=>{
+        if(result){
+          this.props.dispatch(notify(true));
+        }
+      }).catch(()=>{
+        alert('Error notifications');
+      });
+      document.addEventListener('visibilitychange',()=>this.changeActive(),false);
+      window.addEventListener('online',()=>this.updateStatus());
+      window.addEventListener('offline',()=>this.updateStatus());
+    }
+  }
+
+  scrollControl(){
+    this.arrow.hidden = (this.scrollElem.scrollTop >= this.scrollElem.clientHeight*100);
+  }
+
+
+    updateStatus(){
+      if(navigator.onLine){
+        this.props.dispatch(isOnline(true));
+      } else {
+        this.props.dispatch(closeSocket());
+        this.props.dispatch(isOnline(false));
+      }
+    }
+
+    changeActive(){
+      if (document.hidden) {
+        this.active=false;
+      }else{
+        this.active=true;
+      }
+    }
+
+    close(){
+      this.props.dispatch(isAuthenticated(false));
+      this.props.dispatch(closeSocket());
+      localStorage.clear();
+      this.f=true;
+  }
+
+    returnMessages(){
     return (
       <Container className='cont'>
-      <Row className='chatContainer'>
+      <Row className='chatContainer' ref={el=>this.scrollElem=el} onScroll={()=>this.scrollControl()}>
         <Col className='pl-0'>
           <ul>
             {
-              this.state.messages.length>0 ? this.state.messages.map( message => message.from!==this.props.login.nickname ? <li key={uniqueId()}><Message info={message}/></li> : <li key={uniqueId()} className='myMess'><Message info={message} my={true}/></li>) : <li><Spinner animation="border" variant="secondary" /></li>
+              this.props.messages.messages.length>0 ? this.props.messages.messages.map( message => message.from!==this.props.login.nickname ? <li key={message.key || uniqueId()}><Message info={message}/></li> : <li key={message.key || uniqueId()} className='myMess'><Message info={message} my={true}/></li>) : <li><Spinner animation="border" variant="secondary" /></li>
             }
           </ul>
-          <div onClick={this.scrollToBottom} className='arrow'><Image src={arrow}/></div>
-          <div ref={el=>this.messagesEnd=el}></div>
+          <div ref={el=>this.arrow=el} onClick={()=>this.scrollToBottom()} className='arrow'><Image src={arrow}/></div>
+          <div ref={el=>this.messagesEnd=el}>
+          </div>
         </Col>
       </Row>
       <Row id='typeMessage'>
-      <Form onSubmit={() => this.sendMessage()}>
-      <OverlayTrigger trigger="click" placement="top" overlay={popover}>
-        <Image src={smile} className='emodji'/>
-      </OverlayTrigger>
-        <textarea  value={this.state.text} onChange={(event)=>this.saveMessage(event)}/>
-        <Image src={send} className='send' type="submit" onClick={() => this.sendMessage()}/>
-        </Form>
-        <MIDISounds ref="midiSounds" appElementName="root" instruments={[47]} className="sound"/>
+      <MessageForm dispatch={this.props.dispatch} login={this.props.login} isOnline={this.props.chat.isOnline}/>
       </Row>
     </Container>
     );
   }
-  
 
   render(){
-        if(this.props.chat.isOnline){
-          if(this.props.login.isAuth){
-            return (
-              <div>
-                <div className='titleChat'>
-                  <Button onClick = {() => this.closeSocket()} className='buttonExit' variant='primary' style={{ backgroundColor: "#9999ff" }}>LOG OUT</Button>
-                  <h5 className='hello'>Hello {this.props.login.nickname}</h5>
-                </div>
-                {this.returnMessages()}
-              </div>
-            );
-          } else {
-            return <Redirect to={{ pathname: "/login"}}/>
-          }
-        } else {
-          return (
-            <div>
-                <div className='titleChat'>
-                  <Button onClick = {() => this.closeSocket()} className='buttonExit' variant='primary' style={{ backgroundColor: "#9999ff" }}>LOG OUT</Button>
-                  <p>Trying to connect</p>
-                </div>
-                {this.returnMessages()}
+    if(this.props.chat.isOnline){
+      if(this.props.login.isAuth){
+        return (
+          <div>
+            <div className='titleChat'>
+              <Button onClick = {()=>this.close()} className='buttonExit' variant='primary' style={{ backgroundColor: "#9999ff" }}>LOG OUT</Button>
+              <h5 className='hello'>Hello {this.props.login.nickname}</h5>
             </div>
-          )
-        }
+            {
+              this.returnMessages()
+            }
+          </div>
+        );
+      } else {
+        return <Redirect to={{ pathname: process.env.PUBLIC_URL + '/login'}}/>
+      }
+    } else {
+      return (
+        <div>
+            <div className='titleChat'>
+              <Button onClick = {()=>this.close()} className='buttonExit' variant='primary' style={{ backgroundColor: "#9999ff" }}>LOG OUT</Button>
+              <p style={{color:'red'}}>Trying to connect</p>
+            </div>
+            {this.returnMessages()}
+        </div>
+      )
+    }
+  } 
   }
-}
 
 const mapStateToProps = state => (
   {
     login: state.login,
-    chat: state.chat
+    chat: state.chat,
+    messages: state.messages
   }
 
 )

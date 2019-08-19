@@ -22,3 +22,45 @@ export const isOnline = (flag) => {
         payload: flag,
     }
 }
+
+export const sendMessage = (message) => {
+    return {
+        type: CONSTANTS.SEND_MESSAGE,
+        payload: {
+            from: message.from,
+            message: message.message
+        }
+    }
+}
+
+export const getMessages = (message) => {
+    return {
+        type: CONSTANTS.GET_MESSAGES,
+        payload: message
+    }
+}
+
+export const startSocket = () => {
+    return{
+        type: CONSTANTS.START_SOCKET
+    }
+}
+
+export const closeSocket = (flag) => {
+    return{
+        type:CONSTANTS.CLOSE_SOCKET
+    }
+}
+
+export const resetSocket = (flag) => {
+    return{
+        type:CONSTANTS.RESET_SOCKET
+    }
+}
+
+export const notify = (flag) => {
+    return{
+        type:CONSTANTS.NOTIFY,
+        payload: flag
+    }
+}

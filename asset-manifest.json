@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/TestChat/static/css/main.c0cb3cd8.chunk.css",
-    "main.js": "/TestChat/static/js/main.55f5e270.chunk.js",
-    "main.js.map": "/TestChat/static/js/main.55f5e270.chunk.js.map",
+    "main.css": "/TestChat/static/css/main.275f58e1.chunk.css",
+    "main.js": "/TestChat/static/js/main.75e2acb3.chunk.js",
+    "main.js.map": "/TestChat/static/js/main.75e2acb3.chunk.js.map",
     "runtime~main.js": "/TestChat/static/js/runtime~main.d4c8ddcb.js",
     "runtime~main.js.map": "/TestChat/static/js/runtime~main.d4c8ddcb.js.map",
     "static/css/2.666fe85b.chunk.css": "/TestChat/static/css/2.666fe85b.chunk.css",
-    "static/js/2.aff840b6.chunk.js": "/TestChat/static/js/2.aff840b6.chunk.js",
-    "static/js/2.aff840b6.chunk.js.map": "/TestChat/static/js/2.aff840b6.chunk.js.map",
+    "static/js/2.db7d8d7c.chunk.js": "/TestChat/static/js/2.db7d8d7c.chunk.js",
+    "static/js/2.db7d8d7c.chunk.js.map": "/TestChat/static/js/2.db7d8d7c.chunk.js.map",
     "index.html": "/TestChat/index.html",
-    "precache-manifest.575e51f6926d4e812f5705373a302dc8.js": "/TestChat/precache-manifest.575e51f6926d4e812f5705373a302dc8.js",
+    "precache-manifest.df20fbd14c2452b49908f1dd0944cb9a.js": "/TestChat/precache-manifest.df20fbd14c2452b49908f1dd0944cb9a.js",
     "service-worker.js": "/TestChat/service-worker.js",
     "static/css/2.666fe85b.chunk.css.map": "/TestChat/static/css/2.666fe85b.chunk.css.map",
-    "static/css/main.c0cb3cd8.chunk.css.map": "/TestChat/static/css/main.c0cb3cd8.chunk.css.map",
+    "static/css/main.275f58e1.chunk.css.map": "/TestChat/static/css/main.275f58e1.chunk.css.map",
     "static/media/chat.scss": "/TestChat/static/media/back.473124b8.jpg"
   }
 }
